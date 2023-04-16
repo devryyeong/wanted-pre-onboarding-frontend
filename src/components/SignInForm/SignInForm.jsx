@@ -14,8 +14,8 @@ function SignInForm() {
   const [emailIsValidated, emailWarnList, onCheckEmail] = useValidate("email");
   const [passwordIsValidated, passwordWarnList, onCheckPassword] = useValidate("password");
 
-  const token = window.localStorage.getItem("access_token");
-  // 토큰이 있다면, 리다이렉트
+  const token = localStorage.getItem("access_token");
+
   useEffect(() => {
     if (token) {
       navigate("/todo", { replace: true });
@@ -38,15 +38,17 @@ function SignInForm() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
+    console.log(token);
     fetch({
-      url: "https://pre-onboarding-selection-task.shop/auth/signin",
+      url: "https://www.pre-onboarding-selection-task.shop/auth/signin",
       method: "POST",
       headers: {
-        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
-      data: userInfo,
+      data: {
+        email: userInfo.email,
+        password: userInfo.password,
+      },
     })
       .then((res) => {
         console.log(res.data.access_token);
@@ -54,8 +56,8 @@ function SignInForm() {
         navigate("/todo");
       })
       .catch((err) => {
-        alert("로그인 실패");
-        console.log(err)
+        console.log("로그인 실패");
+        console.log(err);
       });
   }
   return (

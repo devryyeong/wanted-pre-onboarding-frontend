@@ -25,27 +25,27 @@ const authApi = (url) => {
   });
 
   instance.interceptors.request.use((config) => {
-    const token = window.localStorage.getItem("access_token");
+    const token = localStorage.getItem("access_token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
       console.log('token겟챠')
     }
-    console.log('이게실행은되는가')
+    console.log(token)
     return config;
   });
 
-  instance.interceptors.response.use(
-    (response) => response,
-    (error) => {
-    if (error.response?.status === 400) {
-      // 인증 오류 처리
-      console.log("Unauthorized");
-    } else if (error.response?.status === 404) {
-      // API endpoint 오류 처리
-      console.log("Not Found");
-    }
-    return Promise.reject(error);
-  });
+  // instance.interceptors.response.use(
+  //   (response) => response,
+  //   (error) => {
+  //   if (error.response?.status === 400) {
+  //     // 인증 오류 처리
+  //     console.log("Unauthorized");
+  //   } else if (error.response?.status === 404) {
+  //     // API endpoint 오류 처리
+  //     console.log("Not Found");
+  //   }
+  //   return Promise.reject(error);
+  // });
 
   return instance;
 };

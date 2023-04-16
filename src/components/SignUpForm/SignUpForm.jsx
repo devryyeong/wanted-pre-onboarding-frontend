@@ -16,13 +16,14 @@ function SignUp() {
   const [emailIsValidated, emailWarnList, onCheckEmail] = useValidate("email");
   const [passwordIsValidated, passwordWarnList, onCheckPassword] = useValidate("password");
 
-  // const token = window.localStorage.getItem('access_token')
-  // // 토큰이 있다면, 리다이렉트
-  // useEffect(() => {
-  //   if (token) {
-  //     navigate("/todo", { replace: true });
-  //   }
-  // }, [token]);
+  // 토큰이 있다면, 리다이렉트
+  const token = localStorage.getItem("access_token");
+  useEffect(() => {
+    if (token) {
+      navigate("/todo", { replace: true });
+      console.log(token)
+    }
+  }, [navigate]);
 
   const handleInputValue = useCallback(
     (key) => (e) => {
@@ -55,19 +56,21 @@ function SignUp() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
+    console.log(userInfo);
     fetch({
-      url: "https://pre-onboarding-selection-task.shop/auth/signup",
+      url: "https://www.pre-onboarding-selection-task.shop/auth/signup",
       method: "POST",
       headers: {
-        "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
       },
-      data: userInfo,
+      data: {
+        email: userInfo.email,
+        password: userInfo.password,
+      },
     })
       .then((res) => {
-        // navigate("/signin");
-        console.log(res)
+        navigate("/signin");
+        console.log(res);
       })
       .catch((err) => {
         console.log("회원가입 실패");

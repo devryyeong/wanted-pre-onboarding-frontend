@@ -2,12 +2,12 @@ import axios from "axios";
 
 const BASE_URL = "https://www.pre-onboarding-selection-task.shop";
 
+/** 인증이 필요하지 않은 API */
 const baseApi = (url, options) => {
   const instance = axios.create({ baseURL: url, ...options });
 
   instance.interceptors.response.use((response) => response, (error) => {
     if (error.response?.status === 401) {
-      //API endpoint 오류 처리
       console.log("Not Found");
     }
     return Promise.reject(error);

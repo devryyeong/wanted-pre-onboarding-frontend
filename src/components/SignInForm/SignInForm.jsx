@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as S from "./SignInForm.styled";
 import useValidate from "../../hooks/useValidate";
-import axios from "axios";
+import { signInApi } from "../../apis/auth";
 
 function SignInForm() {
   const navigate = useNavigate();
@@ -38,33 +38,24 @@ function SignInForm() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(token);
-    fetch({
-      url: "https://www.pre-onboarding-selection-task.shop/auth/signin",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: {
-        email: userInfo.email,
-        password: userInfo.password,
-      },
-    })
+    signInApi(userInfo.email, userInfo.password)
       .then((res) => {
-        console.log(res.data.access_token);
+        e.target.reset();
+        console.log("signin success");
         localStorage.setItem("access_token", res.data.access_token);
+        alert("로컬 스토리지에 토큰이 있습니다. TODO 페이지로 이동합니다.");
         navigate("/todo");
       })
       .catch((err) => {
-        console.log("로그인 실패");
-        console.log(err);
+        console.log(err.response.data.message);
       });
-  }
+  };
+
   return (
     <S.Wrapper>
       <S.Title>로그인</S.Title>
       <S.Form onSubmit={onSubmit}>
-        <S.Label htmlFor="user-email">Email</S.Label>
+        <S.Label htmlFor="email">Email</S.Label>
         <S.Input
           label="이메일"
           id="email"
@@ -80,7 +71,7 @@ function SignInForm() {
           ))}
         </S.ErrorText>
 
-        <S.Label>Password</S.Label>
+        <S.Label htmlFor="password">Password</S.Label>
         <S.Input
           label="비밀번호"
           id="password"

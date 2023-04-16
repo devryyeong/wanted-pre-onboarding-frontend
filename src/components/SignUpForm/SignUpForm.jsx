@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import * as S from "./SignUpForm.styled";
 import { signUpApi } from "../../apis/auth";
 import useValidate from "../../hooks/useValidate";
-import axios from "axios";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -16,67 +15,32 @@ function SignUp() {
   const [emailIsValidated, emailWarnList, onCheckEmail] = useValidate("email");
   const [passwordIsValidated, passwordWarnList, onCheckPassword] = useValidate("password");
 
-  // 토큰이 있다면, 리다이렉트
-  const token = localStorage.getItem("access_token");
-  useEffect(() => {
-    if (token) {
-      navigate("/todo", { replace: true });
-      console.log(token)
-    }
-  }, [navigate]);
-
   const handleInputValue = useCallback(
     (key) => (e) => {
       setUserInfo({ ...userInfo, [key]: e.target.value });
 
       if (key === "email") {
         onCheckEmail(e.target.value);
-        // console.log("email: " + e.target.value);
       }
       if (key === "password") {
         onCheckPassword(e.target.value);
-        // console.log("password: " + e.target.value);
       }
     },
     [userInfo]
   );
 
-  // const onSubmit = (e) => {
-  //   e.preventDefault();
-  //   signUpApi(userInfo)
-  //     .then(() => {
-  //       e.target.reset();
-  //       navigate("/signin");
-  //       console.log("signup success");
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
-
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(userInfo);
-    fetch({
-      url: "https://www.pre-onboarding-selection-task.shop/auth/signup",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: {
-        email: userInfo.email,
-        password: userInfo.password,
-      },
-    })
-      .then((res) => {
+    signUpApi(userInfo.email, userInfo.password)
+      .then(() => {
+        e.target.reset();
         navigate("/signin");
-        console.log(res);
+        console.log("signup success");
       })
       .catch((err) => {
-        console.log("회원가입 실패");
-        console.log(err);
+        console.log(err.response.data.message);
       });
-  };
+  }
 
   return (
     <S.Wrapper>

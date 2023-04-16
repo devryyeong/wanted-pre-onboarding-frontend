@@ -15,40 +15,22 @@ const baseApi = (url, options) => {
   return instance;
 };
 
-const authApi = (url) => {
-  const instance = axios.create({
-    baseURL: url,
+export const authApi = axios.create({
+    baseURL: BASE_URL,
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Content-Type": "application/json",
     },
-  });
+});
 
-  instance.interceptors.request.use((config) => {
-    const token = localStorage.getItem("access_token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-      console.log('token겟챠')
-    }
-    console.log(token)
-    return config;
-  });
-
-  // instance.interceptors.response.use(
-  //   (response) => response,
-  //   (error) => {
-  //   if (error.response?.status === 400) {
-  //     // 인증 오류 처리
-  //     console.log("Unauthorized");
-  //   } else if (error.response?.status === 404) {
-  //     // API endpoint 오류 처리
-  //     console.log("Not Found");
-  //   }
-  //   return Promise.reject(error);
-  // });
-
-  return instance;
-};
+authApi.interceptors.request.use((config) => {
+  const token = localStorage.getItem("access_token");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+    console.log("token겟챠");
+  }
+  console.log('왜안돼 token: '+token);
+  return config;
+})
 
 export const baseInstance = baseApi(BASE_URL);
-export const authInstance = authApi(BASE_URL);

@@ -8,4 +8,6 @@ export const COLOR = {
   BEIGE100: "#D0C9C0",
   BEIGE200: "#EFEAD8",
   BEIGE300: "#EAE7B1",
+
+  BLACK100: "#000000"
 };

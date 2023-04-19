@@ -1,17 +1,19 @@
-import { authInstance } from "./utils";
+import { authApi } from "./utils";
 
 export const getTodoApi = async () => {
-  return authInstance.get("/todos");
+  return authApi.get("/todos");
 };
 
 export const createTodoApi = async (todo) => {
-  return authInstance.post("/todos", { todo });
+  return authApi.post("/todos", { todo }).then(() => getTodoApi());
 };
 
 export const updateTodoApi = async (id, todo, isCompleted) => {
-  return authInstance.put(`/todos/${id}`, { todo, isCompleted });
+  return authApi
+    .put(`/todos/${id}`, { todo, isCompleted })
+    .then(() => getTodoApi());
 };
 
 export const deleteTodoApi = async (id) => {
-  return authInstance.delete(`/todos/${id}`);
+  return authApi.delete(`/todos/${id}`);
 };

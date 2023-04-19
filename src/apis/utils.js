@@ -27,9 +27,7 @@ authApi.interceptors.request.use((config) => {
   const token = localStorage.getItem("access_token");
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
-    console.log("token겟챠");
   }
-  console.log('왜안돼 token: '+token);
   return config;
 })
 

@@ -3,14 +3,15 @@ import * as S from "../TodoInput/TodoInput.styled";
 
 function EditTodoInput({ editTodo, todo }) {
   const [value, setValue] = useState(todo.todo);
-
+  
   const onChange = (e) => {
     setValue(e.target.value);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    editTodo(value, todo.id);
+    editTodo(todo.id, value, );
+    
     console.log(value);
   };
 

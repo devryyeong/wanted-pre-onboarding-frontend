@@ -14,47 +14,59 @@ uuidv4();
 
 function Todo() {
   const [todos, setTodos] = useState([]);
-  const [isDone, setIsDone] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [editTodoItem, setEditTodoItem] = useState(0); // 현재 수정하는 Todo id 저장
 
   const addTodo = (todo) => {
-    createTodoApi(todo)
-      .then((res) => setTodos([...res.data]));
-    console.log(todos)
+    createTodoApi(todo).then((res) => setTodos([...res.data]));
   };
 
   const deleteTodo = (id) => {
-    deleteTodoApi(id)
+    deleteTodoApi(id).then((res) => {
+      const newTodo = todos.filter((el) => el.id !== id);
+      setTodos([...newTodo]);
+    });
+  };
+
+
+  // 수정 버튼 클릭
+  const onEditClick = (id) => {
+    // setTodos(
+    //   todos.map((t) =>
+    //     t.id === id ? { ...t, todo, isEditing: !todo.isEditing } : todo
+    //   )
+    // );
+    setIsEditing(!isEditing);
+    setEditTodoItem(id);
+    console.log(id);
+  };
+
+  // 수정하고 완료버튼 눌렀을 떄 saveHandler
+  const editTodo = (id, todo, isChecked) => {
+    // setTodos(
+    //   todos.map((todo) =>
+    //     todo.id === id ? { ...todo, isEditing: !isEditing } : todo
+    //   )
+    // );
+    // setIsEditing({ isEditing: true, id });
+    // console.log("props: " + id, todo, isCompleted);
+
+    updateTodoApi(id, todo, isChecked)
       .then((res) => {
-        const newTodo = todos.filter((el) => el.id !== id);
-        setTodos([...newTodo]);
+        setTodos([...res.data]);
+        console.log(todos);
+      })
+      .catch((err) => {
+        // throw new Error(err);
+        console.log(err);
       });
-  };
-
-  const toggleComplete = (id, isDone, isCompleted) => {
-    setIsDone(!isDone);
-    // console.log("isCompleted: "+isDone)
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, isCompleted: !isCompleted } : todo
-      )
-    );
-    console.log(todos)
-    // updateTodoApi(todo).then((res) => setTodos([...res.data]));
-  };
-
-  const editTodo = (id, todo, isCompleted) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, isEditing: !isEditing } : todo
-      )
-    );
   };
 
   const editTask = (id, todo, isCompleted) => {
     setTodos(
       todos.map((t) =>
-        t.id === id ? { ...t, todo, isEditing: !todo.isEditing } : todo)
+        t.id === id ? { ...t, todo, isEditing: !todo.isEditing } : todo
+      )
     );
 
     // updateTodoApi(id, isCompleted, todo)
@@ -65,33 +77,36 @@ function Todo() {
     //   .catch((err) => {
     //     throw new Error(err);
     //     console.log(err);
-    //   });;
+    //   });
   };
 
   useEffect(() => {
-      getTodoApi()
-        .then((res) => {
-          setTodos(res.data);
-          console.log(todos)
-        })
-        .catch((err) => {
-          throw new Error(err);
-        });
+    getTodoApi()
+      .then((res) => {
+        setTodos(res.data);
+      })
+      .catch((err) => {
+        throw new Error(err);
+      });
   }, []);
 
   return (
     <MainContainer>
       <TodoInput addTodo={addTodo} />
       {todos.map((todo) =>
-        todo.isEditing ? (
-          <EditTodoInput editTodo={editTask} todo={todo} key={todo.id} />
+        isEditing && todo.id === editTodoItem ? (
+          <EditTodoInput
+            editTodo={editTask}
+            todo={todo}
+            key={todo.id}
+          />
         ) : (
           <TodoItem
             todo={todo}
             key={todo.id}
             deleteTodo={deleteTodo}
             editTodo={editTodo}
-            toggleComplete={toggleComplete}
+            onEditClick={onEditClick}
           />
         )
       )}

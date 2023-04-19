@@ -1,18 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-
+import { updateTodoApi } from "../../../apis/todo";
 import * as S from "./TodoItem.styled";
 
-function TodoItem({ todo, deleteTodo, editTodo, toggleComplete }) {
+function TodoItem({ todo, deleteTodo, editTodo, onEditClick }) {
+  const [isChecked, setIsChecked] = useState(todo.isCompleted);
+  const [modifyToggle, setModifyToggle] = useState(false);
+
   const handleDelete = () => {
     deleteTodo(todo.id);
   };
 
+  const toggleComplete = () => {
+    setIsChecked(!isChecked);
+    // console.log("isChecked: " + !isChecked);
+
+    // updateTodoApi(todo.id, todo.todo, !isChecked).then((res) => {
+    //   editTodo([res.data]);
+    //   console.log(todo);
+    // });
+
+    // -----
+    editTodo(todo.id, todo.todo, isChecked)
+  };
+
+  // 수정 버튼 클릭
   const handleEdit = () => {
-    editTodo(todo.id);
-    console.log(todo.id)
+    onEditClick(todo.id);
+    // updateTodoApi(todo.id, todo.todo, !isChecked).then((res) => {
+    //   editTodo([res.data]);
+    //   console.log(res.data);
+    // });
   };
 
   return (

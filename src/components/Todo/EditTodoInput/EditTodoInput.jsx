@@ -19,7 +19,7 @@ function EditTodoInput({ editTodo, todo }) {
     <S.Wrapper>
       <S.Form onSubmit={onSubmit}>
         <S.Input
-          data-testid="new-todo-input"
+          data-testid="modify-input"
           placeholder="Update task"
           onChange={onChange}
           value={value || "???"}

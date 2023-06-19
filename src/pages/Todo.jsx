@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   getTodoApi,
   createTodoApi,
@@ -12,11 +13,13 @@ import TodoItem from "../components/Todo/TodoItem/TodoItem";
 import { v4 as uuidv4 } from "uuid";
 uuidv4();
 
-function Todo() {
+const Todo = () => {
   const [todos, setTodos] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editTodoItem, setEditTodoItem] = useState(0); // 현재 수정하는 Todo id 저장
-
+  const navigate = useNavigate();
+  const token = localStorage.getItem("access_token");
+  
   const addTodo = (todo) => {
     createTodoApi(todo).then((res) => setTodos([...res.data]));
   };
@@ -79,8 +82,14 @@ function Todo() {
     //     console.log(err);
     //   });
   };
+  
+
 
   useEffect(() => {
+    if (!token) {
+      alert("로그인 후 다시 접속해주세요.\n로그인 페이지로 이동합니다.")
+      navigate("/signin", { replace: true });
+    }
     getTodoApi()
       .then((res) => {
         setTodos(res.data);
@@ -88,7 +97,7 @@ function Todo() {
       .catch((err) => {
         throw new Error(err);
       });
-  }, []);
+  }, [token]);
 
   return (
     <MainContainer>

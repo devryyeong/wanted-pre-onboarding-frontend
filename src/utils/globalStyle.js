@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import { COLOR } from "./colors";
-import Pretendard from "../assets/fonts/Pretendard.ttf";
+// import Pretendard from "../assets/fonts/Pretendard.ttf";
 
 export default createGlobalStyle`
   ${reset}
@@ -16,7 +16,7 @@ export default createGlobalStyle`
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    font-family: "Pretendard";
+    font-family: 'Pretendard';
     font-size: 20px;
     background: linear-gradient(
       to bottom,

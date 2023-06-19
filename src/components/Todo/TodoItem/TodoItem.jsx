@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { updateTodoApi } from "../../../apis/todo";
 import * as S from "./TodoItem.styled";
 
-function TodoItem({ todo, deleteTodo, editTodo, onEditClick }) {
+const TodoItem = ({ todo, deleteTodo, editTodo, onEditClick }) => {
   const [isChecked, setIsChecked] = useState(todo.isCompleted);
   const [modifyToggle, setModifyToggle] = useState(false);
 

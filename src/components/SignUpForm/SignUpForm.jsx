@@ -4,16 +4,15 @@ import * as S from "./SignUpForm.styled";
 import { signUpApi } from "../../apis/auth";
 import useValidate from "../../hooks/useValidate";
 
-function SignUp() {
+const SignUpForm = () => {
+  const [emailIsValidated, emailWarnList, onCheckEmail] = useValidate("email");
+  const [passwordIsValidated, passwordWarnList, onCheckPassword] = useValidate("password");
+  
   const navigate = useNavigate();
-
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
   });
-
-  const [emailIsValidated, emailWarnList, onCheckEmail] = useValidate("email");
-  const [passwordIsValidated, passwordWarnList, onCheckPassword] = useValidate("password");
 
   const handleInputValue = useCallback(
     (key) => (e) => {
@@ -40,7 +39,7 @@ function SignUp() {
       .catch((err) => {
         console.log(err.response.data.message);
       });
-  }
+  };
 
   return (
     <S.Wrapper>
@@ -87,6 +86,6 @@ function SignUp() {
       </S.Form>
     </S.Wrapper>
   );
-}
+};
 
-export default SignUp;
+export default SignUpForm;

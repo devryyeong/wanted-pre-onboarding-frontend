@@ -4,15 +4,15 @@ import * as S from "./SignInForm.styled";
 import useValidate from "../../hooks/useValidate";
 import { signInApi } from "../../apis/auth";
 
-function SignInForm() {
-  const navigate = useNavigate();
+const SignInForm = () => {
+  const [emailIsValidated, emailWarnList, onCheckEmail] = useValidate("email");
+  const [passwordIsValidated, passwordWarnList, onCheckPassword] = useValidate("password");
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
   });
-
-  const [emailIsValidated, emailWarnList, onCheckEmail] = useValidate("email");
-  const [passwordIsValidated, passwordWarnList, onCheckPassword] = useValidate("password");
+  
+  const navigate = useNavigate();
 
   const token = localStorage.getItem("access_token");
 

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import * as S from "../TodoInput/TodoInput.styled";
 
-function EditTodoInput({ editTodo, todo }) {
+const EditTodoInput = ({ editTodo, todo }) => {
   const [value, setValue] = useState(todo.todo);
   
   const onChange = (e) => {

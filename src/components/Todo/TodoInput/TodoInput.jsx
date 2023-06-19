@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as S from "./TodoInput.styled";
 
-function TodoInput({addTodo}) {
+const TodoInput = ({addTodo}) => {
   const [value, setValue] = useState("");
 
   const onChange = (e) => {

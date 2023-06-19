@@ -1,17 +1,14 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
-function Home() {
+const Home = () => {
   return (
-    <div>
-      <h1>Home</h1>
-      <br />
-      <Link to="/signup">SignUp</Link>
-      <br />
-      <hr />
-      <Link to="/signin">SignIn</Link>
-      <br />
-      <hr />
+    <div style={{ border: "1px solid", padding: "70px" }}>
+      <h1 style={{ fontSize: "25px" }}>Home</h1>
+      <div style={{ padding: "20px" }} />
+      <Link to="/signup">Sign Up</Link>
+      <div style={{ padding: "10px" }} />
+      <Link to="/signin">Sign In</Link>
+      <div style={{ padding: "10px" }} />
       <Link to="/todo">Todo</Link>
     </div>
   );

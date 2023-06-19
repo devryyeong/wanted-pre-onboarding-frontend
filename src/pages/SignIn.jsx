@@ -3,7 +3,7 @@ import { MainContainer } from "../utils/globalStyle";
 import { useNavigate } from "react-router";
 import SignInForm from "../components/SignInForm/SignInForm";
 
-function SignIn() {
+const SignIn = () => {
   const navigate = useNavigate();
   // 토큰이 있다면 리다이렉트
   useEffect(() => {

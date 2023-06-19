@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Suspense } from "react";
 import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
@@ -10,21 +10,19 @@ function App() {
   return (
     <>
       <GLobalStyle />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route
-            path="/todo"
-            element={
-              <Suspense fallback={<div>...Loading...</div>}>
-                <Todo />
-              </Suspense>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route
+          path="/todo"
+          element={
+            <Suspense fallback={<div>...Loading...</div>}>
+              <Todo />
+            </Suspense>
+          }
+        />
+      </Routes>
     </>
   );
 }

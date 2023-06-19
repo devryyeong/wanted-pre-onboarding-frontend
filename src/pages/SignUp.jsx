@@ -3,7 +3,7 @@ import { MainContainer } from '../utils/globalStyle';
 import { useNavigate } from "react-router";
 import SignUpForm from "../components/SignUpForm/SignUpForm";
 
-function SignUp() {
+const SignUp = () =>  {
   const navigate = useNavigate();
   // 토큰이 있다면 리다이렉트
   useEffect(() => {
@@ -13,7 +13,7 @@ function SignUp() {
       navigate("/todo", { replace: true });
     }
   }, [navigate]);
-
+  
   return (
     <MainContainer>
       <SignUpForm />

@@ -5,7 +5,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { updateTodoApi } from "../../../apis/todo";
 import * as S from "./TodoItem.styled";
 
-const TodoItem = ({ todo, deleteTodo, editTodo, onEditClick }) => {
+const TodoItem = ({ todo, setTodos, deleteTodo, editTodo, onEditClick }) => {
   const [isChecked, setIsChecked] = useState(todo.isCompleted);
   const [modifyToggle, setModifyToggle] = useState(false);
 
@@ -13,9 +13,10 @@ const TodoItem = ({ todo, deleteTodo, editTodo, onEditClick }) => {
     deleteTodo(todo.id);
   };
 
-  const toggleComplete = () => {
-    setIsChecked(!isChecked);
-    // console.log("isChecked: " + !isChecked);
+  const toggleComplete = (e) => {
+    setIsChecked(e.target.checked);
+    setTodos([...todo, isChecked]);
+    console.log("!: " + todo);
 
     // updateTodoApi(todo.id, todo.todo, !isChecked).then((res) => {
     //   editTodo([res.data]);
@@ -23,17 +24,18 @@ const TodoItem = ({ todo, deleteTodo, editTodo, onEditClick }) => {
     // });
 
     // -----
-    editTodo(todo.id, todo.todo, isChecked)
+    editTodo(todo.id, todo.todo, isChecked);
   };
 
   // 수정 버튼 클릭
   const handleEdit = () => {
     onEditClick(todo.id);
-    // updateTodoApi(todo.id, todo.todo, !isChecked).then((res) => {
-    //   editTodo([res.data]);
-    //   console.log(res.data);
-    // });
+    updateTodoApi(todo.id, todo.todo, !isChecked).then((res) => {
+      editTodo([...res.data]);
+      console.log(res.data);
+    });
   };
+
 
   return (
     <S.Wrapper>
@@ -62,6 +64,6 @@ const TodoItem = ({ todo, deleteTodo, editTodo, onEditClick }) => {
       </S.IconWrapper>
     </S.Wrapper>
   );
-}
+};
 
 export default TodoItem;

@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import { COLOR } from "./colors";
-// import Pretendard from "../assets/fonts/Pretendard.ttf";
 
 export default createGlobalStyle`
   ${reset}

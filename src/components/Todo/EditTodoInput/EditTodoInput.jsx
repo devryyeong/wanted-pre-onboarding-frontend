@@ -1,18 +1,23 @@
 import { useState } from "react";
 import * as S from "../TodoInput/TodoInput.styled";
 
-const EditTodoInput = ({ editTodo, todo }) => {
+const EditTodoInput = ({ editTodo, onEditClick, todo }) => {
   const [value, setValue] = useState(todo.todo);
-  
+
   const onChange = (e) => {
     setValue(e.target.value);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    editTodo(todo.id, value, );
-    
+    editTodo(todo.id, value);
+
     console.log(value);
+  };
+
+  // 수정 취소 버튼 클릭
+  const handleEditCancel = () => {
+    onEditClick(null)
   };
 
   return (
@@ -27,7 +32,7 @@ const EditTodoInput = ({ editTodo, todo }) => {
         <S.Button data-testid="submit-button" type="submit">
           완료
         </S.Button>
-        <S.Button data-testid="cancel-button" type="submit">
+        <S.Button data-testid="cancel-button" onClick={handleEditCancel}>
           취소
         </S.Button>
       </S.Form>

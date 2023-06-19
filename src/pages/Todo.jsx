@@ -19,7 +19,7 @@ const Todo = () => {
   const [editTodoItem, setEditTodoItem] = useState(0); // 현재 수정하는 Todo id 저장
   const navigate = useNavigate();
   const token = localStorage.getItem("access_token");
-  
+
   const addTodo = (todo) => {
     createTodoApi(todo).then((res) => setTodos([...res.data]));
   };
@@ -46,23 +46,22 @@ const Todo = () => {
 
   // 수정하고 완료버튼 눌렀을 떄 saveHandler
   const editTodo = (id, todo, isChecked) => {
-    // setTodos(
-    //   todos.map((todo) =>
-    //     todo.id === id ? { ...todo, isEditing: !isEditing } : todo
-    //   )
-    // );
-    // setIsEditing({ isEditing: true, id });
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, isEditing: !isEditing } : todo
+      )
+    );
+    setIsEditing({ isEditing: true, id });
     // console.log("props: " + id, todo, isCompleted);
 
-    updateTodoApi(id, todo, isChecked)
-      .then((res) => {
-        setTodos([...res.data]);
-        console.log(todos);
-      })
-      .catch((err) => {
-        // throw new Error(err);
-        console.log(err);
-      });
+    // updateTodoApi(id, todo, isChecked)
+    //   .then((res) => {
+    //     setTodos([...res.data]);
+    //     console.log(todos);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   };
 
   const editTask = (id, todo, isCompleted) => {
@@ -105,6 +104,7 @@ const Todo = () => {
       {todos.map((todo) =>
         isEditing && todo.id === editTodoItem ? (
           <EditTodoInput
+            onEditClick={onEditClick}
             editTodo={editTask}
             todo={todo}
             key={todo.id}
@@ -112,6 +112,7 @@ const Todo = () => {
         ) : (
           <TodoItem
             todo={todo}
+            setTodos={setTodos}
             key={todo.id}
             deleteTodo={deleteTodo}
             editTodo={editTodo}

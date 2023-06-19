@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import {
   getTodoApi,
   createTodoApi,
-  updateTodoApi,
   deleteTodoApi,
 } from "../apis/todo";
 import { MainContainer } from '../utils/globalStyle';
@@ -39,24 +38,6 @@ const Todo = () => {
     console.log(id);
   };
 
-  // 수정하고 완료버튼 눌렀을 떄 saveHandler
-  const editTodo = (id, todo, isChecked) => {
-    // setTodos((prevTodos) =>
-    //   prevTodos.map((prevTodo) =>
-    //     prevTodo.id === id
-    //       ? { ...prevTodo, isEditing: !prevTodo.isEditing }
-    //       : prevTodo
-    //   )
-    // );
-
-    // setTodos(
-    //   todos.map((todo) =>
-    //     todo.id === id ? { ...todo, isEditing: !isEditing } : todo
-    //   )
-    // );
-    setIsEditing({ isEditing: !isEditing, id });
-  };
-
 
   useEffect(() => {
     if (!token) {
@@ -67,6 +48,7 @@ const Todo = () => {
     getTodoApi()
       .then((res) => {
         setTodos(res.data);
+        console.log('초기:'+res.data)
       })
       .catch((err) => {
         throw new Error(err);
@@ -81,7 +63,6 @@ const Todo = () => {
           <EditTodoInput
             onEditClick={onEditClick}
             setIsEditing={setIsEditing}
-            editTodo={editTodo}
             todo={todo}
             setTodos={setTodos}
             key={todo.id}
@@ -92,7 +73,6 @@ const Todo = () => {
             setTodos={setTodos}
             key={todo.id}
             deleteTodo={deleteTodo}
-            editTodo={editTodo}
             onEditClick={onEditClick}
           />
         )

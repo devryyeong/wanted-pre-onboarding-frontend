@@ -5,9 +5,8 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { updateTodoApi } from "../../../apis/todo";
 import * as S from "./TodoItem.styled";
 
-const TodoItem = ({ todo, setTodos, deleteTodo, editTodo, onEditClick }) => {
+const TodoItem = ({ todo, setTodos, deleteTodo, onEditClick }) => {
   const [isChecked, setIsChecked] = useState(todo.isCompleted);
-  const [modifyToggle, setModifyToggle] = useState(false);
   const [content, setContent] = useState(todo);
 
   const handleDelete = () => {
@@ -16,24 +15,17 @@ const TodoItem = ({ todo, setTodos, deleteTodo, editTodo, onEditClick }) => {
 
   const toggleComplete = (e) => {
     setIsChecked(e.target.checked);
-    setTodos({ ...todo, isCompleted: !todo.isChecked });
-    console.log("!: " + todo);
+    console.log(content);
 
-    updateTodoApi(content.id, content.todo, content.isCompleted).then((res) => {
-      // editTodo([res.data]);
-      console.log(res.data);
-    });
-
-    // -----
-    editTodo(todo.id, todo.todo, isChecked);
+    updateTodoApi(content.id, content.todo, e.target.checked).then((res) => {
+      setTodos([...res.data])
+    })
   };
 
   // 수정 버튼 클릭
   const handleEdit = () => {
     onEditClick(todo.id);
-
   };
-
 
 
   return (
@@ -44,6 +36,7 @@ const TodoItem = ({ todo, setTodos, deleteTodo, editTodo, onEditClick }) => {
             type="checkbox"
             style={{ marginRight: "12px", width: "20px" }}
             onChange={toggleComplete}
+            defaultChecked={isChecked}
           />
           <span> {todo.todo}</span>
         </S.LabelWrapper>

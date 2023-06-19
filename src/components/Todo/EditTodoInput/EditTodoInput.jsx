@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import * as S from "../TodoInput/TodoInput.styled";
 import { updateTodoApi } from "../../../apis/todo";
 
-const EditTodoInput = ({ editTodo, onEditClick, setIsEditing, todo, setTodos }) => {
+const EditTodoInput = ({ onEditClick, setIsEditing, todo, setTodos }) => {
   const [value, setValue] = useState(todo.todo);
   const [content, setContent] = useState(todo);
 
@@ -21,7 +21,7 @@ const EditTodoInput = ({ editTodo, onEditClick, setIsEditing, todo, setTodos }) 
       return;
     }
 
-    updateTodoApi(content.id, value, !content.isChecked)
+    updateTodoApi(content.id, value, content.isCompleted)
       .then((res) => {
         setTodos([...res.data]);
         setIsEditing(false)

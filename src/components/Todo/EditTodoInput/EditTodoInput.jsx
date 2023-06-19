@@ -1,17 +1,32 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import * as S from "../TodoInput/TodoInput.styled";
+import { updateTodoApi } from "../../../apis/todo";
 
-const EditTodoInput = ({ editTodo, onEditClick, todo }) => {
+const EditTodoInput = ({ editTodo, onEditClick, setIsEditing, todo, setTodos }) => {
   const [value, setValue] = useState(todo.todo);
+  const [content, setContent] = useState(todo);
 
-  const onChange = (e) => {
-    setValue(e.target.value);
-  };
+  const onInputChange = useCallback(
+    (e) => {
+      setValue(e.target.value);
+    },
+    [value]
+  );
 
-  const onSubmit = (e) => {
+  // 수정 완료 버튼 클릭
+  const handleCompleteBtnClick = (e) => {
     e.preventDefault();
-    editTodo(todo.id, value);
+    if (!value) {
+      alert("할 일을 입력해 주세요");
+      return;
+    }
 
+    updateTodoApi(content.id, value, !content.isChecked)
+      .then((res) => {
+        setTodos([...res.data]);
+        setIsEditing(false)
+        console.log(res.data);
+      })
     console.log(value);
   };
 
@@ -22,14 +37,18 @@ const EditTodoInput = ({ editTodo, onEditClick, todo }) => {
 
   return (
     <S.Wrapper>
-      <S.Form onSubmit={onSubmit}>
+      <S.Form>
         <S.Input
           data-testid="modify-input"
           placeholder="Update task"
-          onChange={onChange}
-          value={value || "???"}
+          onChange={onInputChange}
+          value={value}
         />
-        <S.Button data-testid="submit-button" type="submit">
+        <S.Button
+          data-testid="submit-button"
+          type="submit"
+          onClick={handleCompleteBtnClick}
+        >
           완료
         </S.Button>
         <S.Button data-testid="cancel-button" onClick={handleEditCancel}>

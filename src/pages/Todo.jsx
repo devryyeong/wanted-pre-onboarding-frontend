@@ -34,11 +34,6 @@ const Todo = () => {
 
   // 수정 버튼 클릭
   const onEditClick = (id) => {
-    // setTodos(
-    //   todos.map((t) =>
-    //     t.id === id ? { ...t, todo, isEditing: !todo.isEditing } : todo
-    //   )
-    // );
     setIsEditing(!isEditing);
     setEditTodoItem(id);
     console.log(id);
@@ -46,42 +41,21 @@ const Todo = () => {
 
   // 수정하고 완료버튼 눌렀을 떄 saveHandler
   const editTodo = (id, todo, isChecked) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, isEditing: !isEditing } : todo
-      )
-    );
-    setIsEditing({ isEditing: true, id });
-    // console.log("props: " + id, todo, isCompleted);
+    // setTodos((prevTodos) =>
+    //   prevTodos.map((prevTodo) =>
+    //     prevTodo.id === id
+    //       ? { ...prevTodo, isEditing: !prevTodo.isEditing }
+    //       : prevTodo
+    //   )
+    // );
 
-    // updateTodoApi(id, todo, isChecked)
-    //   .then((res) => {
-    //     setTodos([...res.data]);
-    //     console.log(todos);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    // setTodos(
+    //   todos.map((todo) =>
+    //     todo.id === id ? { ...todo, isEditing: !isEditing } : todo
+    //   )
+    // );
+    setIsEditing({ isEditing: !isEditing, id });
   };
-
-  const editTask = (id, todo, isCompleted) => {
-    setTodos(
-      todos.map((t) =>
-        t.id === id ? { ...t, todo, isEditing: !todo.isEditing } : todo
-      )
-    );
-
-    // updateTodoApi(id, isCompleted, todo)
-    //   .then((res) => {
-    //     setTodos([...res.data]);
-    //     console.log("ok?");
-    //   })
-    //   .catch((err) => {
-    //     throw new Error(err);
-    //     console.log(err);
-    //   });
-  };
-  
 
 
   useEffect(() => {
@@ -89,6 +63,7 @@ const Todo = () => {
       alert("로그인 후 다시 접속해주세요.\n로그인 페이지로 이동합니다.")
       navigate("/signin", { replace: true });
     }
+    
     getTodoApi()
       .then((res) => {
         setTodos(res.data);
@@ -105,8 +80,10 @@ const Todo = () => {
         isEditing && todo.id === editTodoItem ? (
           <EditTodoInput
             onEditClick={onEditClick}
-            editTodo={editTask}
+            setIsEditing={setIsEditing}
+            editTodo={editTodo}
             todo={todo}
+            setTodos={setTodos}
             key={todo.id}
           />
         ) : (

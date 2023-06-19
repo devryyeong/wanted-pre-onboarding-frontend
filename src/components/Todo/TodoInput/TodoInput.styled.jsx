@@ -17,7 +17,6 @@ export const Title = styled.span`
 export const Form = styled.form`
   display: flex;
   border-radius: 4px;
-  background-color: ${COLOR.WHITE100};
   width: 100%;
   padding: 10px;
   margin-bottom: 20px;

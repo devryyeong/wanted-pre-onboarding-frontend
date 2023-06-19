@@ -12,7 +12,10 @@ npm install
 npm start
 ```
 
-# 2. 데모영상
+#2. 배포 링크
+https://devryyeong-todo.vercel.app/
 
-https://user-images.githubusercontent.com/68095767/233040603-fcba46f1-370d-4e4b-a1fd-ffa96189164b.mp4
+# 3. 데모영상
 
+
+지원자: 이나령

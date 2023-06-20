@@ -17,8 +17,7 @@ https://devryyeong-todo.vercel.app/
 
 # 3. 데모영상
 
-
-https://github.com/devryyeong/wanted-pre-onboarding-frontend/assets/68095767/89c1ee1a-d1c1-42cb-b76e-d58f5e4ba3aa
+https://github.com/devryyeong/wanted-pre-onboarding-frontend/assets/68095767/cc4be01e-4fce-4820-be45-35b08f007e30
 
 
 

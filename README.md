@@ -16,7 +16,11 @@ npm start
 https://devryyeong-todo.vercel.app/
 
 # 3. 데모영상
-![2023-06-20 02;30;43](https://github.com/devryyeong/wanted-pre-onboarding-frontend/assets/68095767/4cbff29e-78dc-4320-80a7-bbb146379629)
+
+
+https://github.com/devryyeong/wanted-pre-onboarding-frontend/assets/68095767/89c1ee1a-d1c1-42cb-b76e-d58f5e4ba3aa
+
+
 
 
 지원자: 이나령

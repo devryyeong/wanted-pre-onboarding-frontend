@@ -2,7 +2,6 @@ import axios from "axios";
 
 const BASE_URL = "https://www.pre-onboarding-selection-task.shop";
 
-/** 인증이 필요하지 않은 API */
 const baseApi = (url, options) => {
   const instance = axios.create({ baseURL: url, ...options });
 

@@ -49,10 +49,10 @@ const EditTodoInput = ({ onEditClick, setIsEditing, todo, setTodos }) => {
           type="submit"
           onClick={handleCompleteBtnClick}
         >
-          완료
+          Update
         </S.Button>
         <S.Button data-testid="cancel-button" onClick={handleEditCancel}>
-          취소
+          Cancel
         </S.Button>
       </S.Form>
     </S.Wrapper>

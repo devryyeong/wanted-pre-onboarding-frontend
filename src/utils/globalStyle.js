@@ -30,7 +30,6 @@ export const MainContainer = styled.div`
   width: 450px;
   height: 100%; //530
   overflow: hidden;
-  // background: linear-gradient(to bottom, ${COLOR.GREEN100}, ${COLOR.GREEN200}, ${COLOR.GREEN100});
   background-color: ${COLOR.GREEN100};
   border-radius: 10px;
   box-shadow: 3px 10px 50px ${COLOR.BLACK100};

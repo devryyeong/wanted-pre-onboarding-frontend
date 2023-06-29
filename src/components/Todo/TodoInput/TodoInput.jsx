@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import * as S from "./TodoInput.styled";
 
 const TodoInput = ({addTodo}) => {
@@ -20,7 +20,6 @@ const TodoInput = ({addTodo}) => {
       <S.Form onSubmit={onSubmit}>
           <S.Input data-testid="new-todo-input" placeholder="What is the task today?" onChange={onChange} value={value}/>
           <S.Button data-testid="new-todo-add-button" type="submit"> Add Task
-            {/* <S.ButtonText>추가</S.ButtonText> */}
           </S.Button>
       </S.Form>
     </S.Wrapper>

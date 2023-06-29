@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   padding: 4px 12px;
 
   &:hover {
-    background-color: #f2e3db;
+    background-color: ${COLOR.WHITE100};
   }
 `;
 
@@ -50,7 +50,7 @@ export const Button = styled.button`
   margin-top: 20px;
   border-radius: 4px;
   padding: 16px 4px;
-  background-color: ${COLOR.WHITE};
+  background-color: ${COLOR.WHITE100};
   &:hover {
     cursor: pointer;
   }

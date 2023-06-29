@@ -19,8 +19,6 @@ export const Todo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #8758ff;
-  color: #fff;
   padding: 0.75rem 1rem;
   border-radius: 5px;
   margin-bottom: 1rem;
@@ -29,7 +27,6 @@ export const Todo = styled.div`
 
 export const IconWrapper = styled.div`
   display: flex;
-  // background-color: olive;
 `;
 
 export const LabelWrapper = styled.label`

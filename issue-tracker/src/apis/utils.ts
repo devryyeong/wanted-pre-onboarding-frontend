@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
 const BASE_URL = 'https://api.github.com/';
-export const GITHUB_TOKEN = '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';
+export const GITHUB_TOKEN = '';
 
 const axiosApi = (url: string) => {
   const axiosInstance = axios.create({

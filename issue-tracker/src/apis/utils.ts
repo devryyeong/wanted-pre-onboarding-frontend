@@ -1,14 +1,13 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
 const BASE_URL = 'https://api.github.com/';
-export const GITHUB_TOKEN = '';
 
 const axiosApi = (url: string) => {
   const axiosInstance = axios.create({
     baseURL: url,
     headers: {
       Accept: "application/vnd.github+json",
-      Authorization: `Bearer ${GITHUB_TOKEN}`,
+      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
       "X-GitHub-Api-Version": "2022-11-28",
     },
     timeout: 2000,

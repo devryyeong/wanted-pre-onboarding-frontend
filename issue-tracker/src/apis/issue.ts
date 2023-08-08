@@ -1,4 +1,4 @@
-import { axiosInstance, GITHUB_TOKEN } from "./utils";
+import { axiosInstance } from "./utils";
 
 export const getIssue = async (query = '', page = 1) => {
   const response = await axiosInstance.get('/repos/facebook/react/issues', {
@@ -22,7 +22,7 @@ export const getIssueDetail = async (issueNumber: number) => {
 export const getRepoInfo = async () => {
   const response = await axiosInstance.get("/repos/facebook/react", {
     headers: {
-      Authorization: `Bearer ${GITHUB_TOKEN}`,
+      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
     },
   });
   return response.data;

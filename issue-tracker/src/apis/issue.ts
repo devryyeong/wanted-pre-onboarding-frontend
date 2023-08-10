@@ -1,6 +1,7 @@
 import { axiosInstance } from "./utils";
+import { GITHUB_TOKEN } from "../constant";
 
-export const getIssue = async (query = '', page = 1) => {
+export const getIssue = async (query = '', page = 1): Promise<any[]> => {
   const response = await axiosInstance.get('/repos/facebook/react/issues', {
     params: {
       state: 'open',
@@ -22,7 +23,7 @@ export const getIssueDetail = async (issueNumber: number) => {
 export const getRepoInfo = async () => {
   const response = await axiosInstance.get("/repos/facebook/react", {
     headers: {
-      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
     },
   });
   return response.data;

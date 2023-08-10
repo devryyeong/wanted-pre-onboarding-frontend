@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import { GITHUB_TOKEN } from "../constant";
 
 const BASE_URL = 'https://api.github.com/';
 
@@ -7,7 +8,7 @@ const axiosApi = (url: string) => {
     baseURL: url,
     headers: {
       Accept: "application/vnd.github+json",
-      Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
       "X-GitHub-Api-Version": "2022-11-28",
     },
     timeout: 2000,

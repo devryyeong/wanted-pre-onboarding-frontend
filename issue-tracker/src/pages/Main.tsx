@@ -30,7 +30,7 @@ const Main: React.FC = () => {
       try {
         const newIssues = await getIssue("", page);
         setIssues(newIssues);
-        console.log(issues);
+        console.log(newIssues);
       } catch (error) {
         console.error("Error fetching issues: ", error);
       }
@@ -76,18 +76,6 @@ const Main: React.FC = () => {
   );
 };
 
-const UserAvatar = styled.img`
-  width: 16px;
-  height: 16px;
-  border-radius: 8px;
-`;
-const CommentContainer = styled.div`
-  display: flex;
-`;
-const CommentIcon = styled.img`
-  width: 16px;
-  height: 16px;
-`;
 const Container = styled.div`
   margin-top: 10px;
   padding: 12px;
@@ -98,7 +86,7 @@ const Container = styled.div`
 const ContentsContainer = styled.div`
   display: flex;
   justify-content: space-between;
-`
+`;
 
 const TopContainer = styled.div`
   display: flex;
@@ -107,7 +95,11 @@ const TopContainer = styled.div`
 
 const BottomContainer = styled.div`
   display: flex;
-`
+`;
+
+const CommentContainer = styled.div`
+  display: flex;
+`;
 
 const Title = styled.div`
   font-weight: bold;
@@ -123,6 +115,17 @@ const Comment = styled.div`
   font-size: 12px;
   color: gray;
   margin-left: 6px;
+`;
+
+const CommentIcon = styled.img`
+  width: 16px;
+  height: 16px;
+`;
+
+const UserAvatar = styled.img`
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
 `;
 
 export default Main;

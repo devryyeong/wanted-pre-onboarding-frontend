@@ -68,7 +68,6 @@ const Main: React.FC = () => {
               <UserAvatar src={issue.user.avatar_url} />
               <Author>&nbsp;{issue.user.login}</Author>
               <span style={{ padding: "6px" }}></span>
-              {/* <Date>2022-02-11</Date> */}
             </BottomContainer>
           </ContentsContainer>
         </Container>
@@ -116,11 +115,6 @@ const Title = styled.div`
 `;
 
 const Author = styled.div`
-  font-size: 12px;
-  color: gray;
-`;
-
-const Date = styled.div`
   font-size: 12px;
   color: gray;
 `;

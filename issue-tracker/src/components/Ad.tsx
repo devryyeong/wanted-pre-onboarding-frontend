@@ -1,9 +1,28 @@
-import React from 'react'
+import styled from '@emotion/styled';
 
-const Ad = () => {
+const Ad = ({ keyIndex, imgSrc }: { keyIndex: number; imgSrc: string; }) => {
   return (
-    <div>Ad</div>
-  )
-}
+    <ImageList key={`ad-${keyIndex}`}>
+      <a href="https://www.wanted.co.kr/" target="_blank" rel="norefferrer">
+        <img className="img" src={imgSrc} alt="Advertisement" />
+      </a>
+    </ImageList>
+  );
+};
 
-export default Ad
+export default Ad;
+
+const ImageList = styled.li`
+  a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 800px;
+    padding: 20px 0;
+  }
+
+  img {
+    width: 50%;
+    object-fit: contain;
+  }
+`;

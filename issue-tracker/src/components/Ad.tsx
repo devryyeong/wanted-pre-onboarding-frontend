@@ -18,11 +18,10 @@ const ImageList = styled.li`
     justify-content: center;
     align-items: center;
     max-width: 800px;
-    padding: 20px 0;
   }
 
   img {
-    width: 50%;
+    width: 20%;
     object-fit: contain;
   }
 `;

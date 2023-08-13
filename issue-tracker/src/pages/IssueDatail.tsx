@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import ReactMarkdown from 'react-markdown';
 import { useIssueDetail } from "../context/detailContext";
 import { parseDate } from "../utils/parseDate";
-import { Spinner } from "../components/Spinner";
+import Spinner from "../components/Spinner";
 import IcOpen from '../assets/ic-open.svg';
 
 const IssueDatail = () => {

@@ -24,7 +24,8 @@ const Main: React.FC = () => {
 
   const [issues, setIssues] = useState<AxiosResponse | any>(null);
   const [page, setPage] = useState(1);
-  const [issueNumber, setIssueNumber] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState(false)
+  const [issueNumber, setIssueNumber] = useState(false);
 
   useInfiniteScroll(() => {
     setPage(page + 1);

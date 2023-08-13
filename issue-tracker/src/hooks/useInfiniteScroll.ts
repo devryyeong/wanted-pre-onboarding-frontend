@@ -1,20 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
-export const useInfiniteScroll = (callback: () => void) => {
+export const useInfiniteScroll = <T extends HTMLElement>(callback: () => void) => {
+  const target = useRef<T | null>(null);
+
   useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop !==
-        document.documentElement.offsetHeight
-      )
-        return;
-      callback();
-    };
-
-    window.addEventListener("scroll", handleScroll);
+    const observer = new IntersectionObserver(
+      (entries, ob) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            ob.unobserve(entry.target);
+            callback();
+          }
+        });
+      },
+      { threshold: 0.5 },
+    );
+    
+    target.current && observer.observe(target.current);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      observer.disconnect();
     };
   }, [callback]);
+
+  return { target } as const;
 };

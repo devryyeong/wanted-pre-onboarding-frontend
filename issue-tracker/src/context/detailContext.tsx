@@ -1,6 +1,6 @@
 import { createContext, PropsWithChildren, useContext, useState } from 'react';
 import { getIssueDetail } from "../apis/issue";
-import { IssueDetailType } from "../types/issue";
+import { IssueType } from "../types/issue";
 
 const INITIAL_ISSUE_DETAIL = {
   number: 0,
@@ -9,13 +9,14 @@ const INITIAL_ISSUE_DETAIL = {
   comments: 0,
   updated_at: new Date(),
   user: {
+    login: '',
+    url: '',
     avatar_url: '',
-    login: ''
   },
 };
 
 export const IssueDetailContext = createContext<{
-  detail: IssueDetailType;
+  detail: IssueType;
   loading: boolean;
   loadIssueDetail: (id: number) => void;
 }>({
@@ -33,7 +34,7 @@ export const useIssueDetail = () => {
 };
 
 const IssueDetailProvider = (props: PropsWithChildren) => {
-  const [detail, setDetail] = useState<IssueDetailType>(INITIAL_ISSUE_DETAIL);
+  const [detail, setDetail] = useState<IssueType>(INITIAL_ISSUE_DETAIL);
   const [loading, setLoading] = useState<boolean>(false);
 
   const loadIssueDetail = async (id: number) => {

@@ -6,6 +6,8 @@ import { getIssue, getIssueDetail, getRepoInfo } from "../apis/issue";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import IcChat from '../assets/ic-chat.png';
 import { IssueType } from "../types/issue";
+import { parseDate } from "../utils/parseDate";
+import Ad from "../components/Ad";
 
 
 const Main: React.FC = () => {
@@ -13,6 +15,8 @@ const Main: React.FC = () => {
 
   const [issues, setIssues] = useState<AxiosResponse | any>(null);
   const [page, setPage] = useState(1);
+
+  // const { target } = useInfiniteScroll<HTMLDivElement>();
 
   useInfiniteScroll(() => {
     setPage(page + 1);
@@ -44,15 +48,7 @@ const Main: React.FC = () => {
   };
 
 
-  const parseDate = (date: Date) => {
-    const dateObject = new Date(date);
-
-    const year = dateObject.getFullYear();
-    const month = dateObject.getMonth() + 1;
-    const day = dateObject.getDay();
-
-    return `${year}년 ${month}월 ${day}일`;
-  };
+  
 
   return (
     <>
@@ -60,10 +56,14 @@ const Main: React.FC = () => {
         issues?.map((issue: IssueType, index: number) => (
           <Container key={index}>
             <TopContainer>
-              <Title onClick={() => {
-                handleIssueClick(issue.number);
-                console.log("A")
-              }}>{issue.title}</Title>
+              <Title
+                onClick={() => {
+                  handleIssueClick(issue.number);
+                  console.log("A");
+                }}
+              >
+                {issue.title}
+              </Title>
               <CommentContainer>
                 <CommentIcon src={IcChat} />
                 <Comment>{issue.comments}</Comment>
@@ -72,7 +72,8 @@ const Main: React.FC = () => {
             <ContentsContainer>
               <BottomContainer>
                 <SubText>
-                  #{issue.number} opened on {issue.updated_at} by&nbsp;
+                  #{issue.number} opened on {parseDate(issue.updated_at)}{" "}
+                  by&nbsp;
                 </SubText>
                 <UserAvatar src={issue.user.avatar_url} />
                 <SubTextBold>&nbsp;{issue.user.login}</SubTextBold>

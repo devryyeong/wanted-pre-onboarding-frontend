@@ -1,5 +1,5 @@
 import { axiosInstance } from "./utils";
-import { GITHUB_TOKEN } from "../constant";
+import { GITHUB_TOKEN } from '../constant'
 
 export const getIssue = async (query = '', page = 1): Promise<any[]> => {
   const response = await axiosInstance.get('/repos/facebook/react/issues', {

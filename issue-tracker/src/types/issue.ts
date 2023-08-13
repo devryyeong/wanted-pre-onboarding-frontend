@@ -10,9 +10,3 @@ export interface IssueType {
   comments: number;
   body: string;
 }
-
-export interface IssueDetailType {
-  number: number;
-  user: { avatar_url: string };
-  body: string;
-}

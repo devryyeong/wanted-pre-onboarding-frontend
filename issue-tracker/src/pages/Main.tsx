@@ -43,13 +43,15 @@ const Main: React.FC = () => {
     }
   };
 
-  /**
-   * created_at의 형식을 'Oct 27, 2018'의 형식으로 변환해주는 함수
-   */
-  const parseDate = (date: string | any) => {
-    //   const parsedDate: any = typeof date === 'string' ? new Date(date) : date;
-    //   const options = { year: "numeric", month: "short", day: "numeric" };
-    //   return parsedDate.toLocaleDateString("en-US", options);
+
+  const parseDate = (date: Date) => {
+    const dateObject = new Date(date);
+
+    const year = dateObject.getFullYear();
+    const month = dateObject.getMonth() + 1;
+    const day = dateObject.getDay();
+
+    return `${year}년 ${month}월 ${day}일`;
   };
 
   return (
@@ -70,7 +72,7 @@ const Main: React.FC = () => {
             <ContentsContainer>
               <BottomContainer>
                 <SubText>
-                  #{issue.number} opened on {issue.created_at} by&nbsp;
+                  #{issue.number} opened on {issue.updated_at} by&nbsp;
                 </SubText>
                 <UserAvatar src={issue.user.avatar_url} />
                 <SubTextBold>&nbsp;{issue.user.login}</SubTextBold>

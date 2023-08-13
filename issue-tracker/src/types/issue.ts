@@ -6,7 +6,7 @@ export interface IssueType {
     url: string;
     avatar_url: string;
   };
-  created_at: string;
+  updated_at: Date;
   comments: number;
   body: string;
 }

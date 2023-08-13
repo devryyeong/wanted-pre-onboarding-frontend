@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
 import { AxiosResponse } from 'axios';
 import styled from "@emotion/styled";
-import { useNavigate, NavigateFunction } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getIssue } from "../apis/issue";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import IcChat from '../assets/ic-chat.png';
@@ -11,19 +11,34 @@ import Ad from "../components/Ad";
 import { IMG_SRC } from "../constant";
 
 const Main: React.FC = () => {
-  const navigate: NavigateFunction = useNavigate();
+  const navigate = useNavigate();
 
   const [issues, setIssues] = useState<AxiosResponse | any>(null);
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
 
-  const { target } = useInfiniteScroll<HTMLDivElement>(issues);
+  const loadMoreIssues = async () => {
+    const nextPage = Math.floor(issues.length / 30) + 1;
+
+    setLoading(true);
+    const res = await getIssue("", nextPage);
+
+    if (res.length < 30) {
+      setLoading(false);
+      return;
+    }
+
+    setIssues([...issues, ...res]);
+    setLoading(false);
+  };
+
+  const { target } = useInfiniteScroll<HTMLDivElement>(loadMoreIssues);
 
   useEffect(() => {
     const fetchIssueList = async (): Promise<void> => {
       try {
         const newIssues = await getIssue("", page);
         setIssues(newIssues);
-        
       } catch (error) {
         console.error("Error fetching issues: ", error);
       }
@@ -40,39 +55,41 @@ const Main: React.FC = () => {
     }
   };
 
-
   return (
     <>
       {issues &&
         issues?.map((issue: IssueType, index: number) => (
-          <Fragment key={issue.number}>
-            <Container key={index}>
-              <TopContainer>
-                <Title
-                  onClick={() => {
-                    handleIssueClick(issue.number);
-                  }}
-                >
-                  {issue.title}
-                </Title>
-                <CommentContainer>
-                  <CommentIcon src={IcChat} />
-                  <Comment>{issue.comments}</Comment>
-                </CommentContainer>
-              </TopContainer>
-              <ContentsContainer>
-                <BottomContainer>
-                  <SubText>
-                    #{issue.number} opened on {parseDate(issue.updated_at)}{" "}
-                    by&nbsp;
-                  </SubText>
-                  <UserAvatar src={issue.user.avatar_url} />
-                  <SubTextBold>&nbsp;{issue.user.login}</SubTextBold>
-                </BottomContainer>
-              </ContentsContainer>
-            </Container>
-            {index % 4 === 3 && <Ad keyIndex={index} imgSrc={IMG_SRC} />}
-          </Fragment>
+          <>
+            <Fragment key={issue.number}>
+              <Container key={index}>
+                <TopContainer>
+                  <Title
+                    onClick={() => {
+                      handleIssueClick(issue.number);
+                    }}
+                  >
+                    {issue.title}
+                  </Title>
+                  <CommentContainer>
+                    <CommentIcon src={IcChat} />
+                    <Comment>{issue.comments}</Comment>
+                  </CommentContainer>
+                </TopContainer>
+                <ContentsContainer>
+                  <BottomContainer>
+                    <SubText>
+                      #{issue.number} opened on {parseDate(issue.updated_at)}{" "}
+                      by&nbsp;
+                    </SubText>
+                    <UserAvatar src={issue.user.avatar_url} />
+                    <SubTextBold>&nbsp;{issue.user.login}</SubTextBold>
+                  </BottomContainer>
+                </ContentsContainer>
+              </Container>
+              {index % 4 === 3 && <Ad keyIndex={index} imgSrc={IMG_SRC} />}
+            </Fragment>
+            <div ref={target} style={{ height: "1rem" }}></div>
+          </>
         ))}
     </>
   );

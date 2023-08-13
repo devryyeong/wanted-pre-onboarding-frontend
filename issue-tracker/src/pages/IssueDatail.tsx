@@ -1,12 +1,10 @@
-import React from 'react';
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import styled from "@emotion/styled";
 import ReactMarkdown from 'react-markdown';
+import
 
-type IssueDetail = {
-  user: { avatar_url: string; };
-  body: string;
-};
-
-const IssueDatail = ({ id }:any) => {
+const IssueDatail = () => {
   return (
     <>
       <div>IssueDatail</div>

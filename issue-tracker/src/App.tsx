@@ -1,5 +1,3 @@
-import React from 'react';
-import { Global, css } from '@emotion/react';
 import { BrowserRouter as Router, Routes, Route, BrowserRouter, useParams } from 'react-router-dom';
 import Header from './components/Header';
 import Main from './pages/Main';
@@ -13,7 +11,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Main />} />
-          <Route path='/issues/:id' element={<IssueDatail id={id} />} />
+          <Route path='/issues/:id' element={<IssueDatail />} />
+          <Route path='*' />
         </Routes>
       </BrowserRouter>
     </div>

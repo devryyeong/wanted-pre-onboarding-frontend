@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 const Ad = ({ keyIndex, imgSrc }: { keyIndex: number; imgSrc: string; }) => {
   return (
     <ImageList key={`ad-${keyIndex}`}>
-      <a href="https://www.wanted.co.kr/" target="_blank" rel="norefferrer">
+      <a href="https://www.wanted.co.kr/" target="_blank" rel="noreferrer">
         <img className="img" src={imgSrc} alt="Advertisement" />
       </a>
     </ImageList>

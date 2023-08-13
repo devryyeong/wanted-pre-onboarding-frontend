@@ -5,27 +5,14 @@ import { useNavigate, NavigateFunction } from "react-router-dom";
 import { getIssue, getIssueDetail, getRepoInfo } from "../apis/issue";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import IcChat from '../assets/ic-chat.png';
+import { IssueType } from "../types/issue";
 
-interface IssueType {
-  title: string;
-  number: number;
-  user: {
-    login: string;
-    url: string;
-    avatar_url: string;
-  }
-  created_at: string;
-  comments: number;
-  body: string;
-}
 
 const Main: React.FC = () => {
   const navigate: NavigateFunction = useNavigate();
 
   const [issues, setIssues] = useState<AxiosResponse | any>(null);
   const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false)
-  const [issueNumber, setIssueNumber] = useState(false);
 
   useInfiniteScroll(() => {
     setPage(page + 1);
@@ -36,7 +23,6 @@ const Main: React.FC = () => {
       try {
         const newIssues = await getIssue("", page);
         setIssues(newIssues);
-        setIssueNumber(issues.number);
         
       } catch (error) {
         console.error("Error fetching issues: ", error);
